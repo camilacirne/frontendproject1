@@ -100,5 +100,99 @@
         </section>
 
 
-<section class="servicos card">
+ <section class="servicos card animate-fade-up">
+            <h2>Principais Serviços</h2>
+            <div class="servicos-grid">
+                <div class="srv">
+                    <h3>Desenvolvimento Web</h3>
+                    <p>Aplicações modernas, responsivas e escaláveis. Utilizamos tecnologias de ponta como React, Node.js e arquiteturas cloud-native.</p>
+                </div>
+                <div class="srv">
+                    <h3>Segurança & Pentest</h3>
+                    <p>Auditorias de segurança completas, testes de penetração e implementação de protocolos de proteção para seus sistemas.</p>
+                </div>
+                <div class="srv">
+                    <h3>Migração para Cloud</h3>
+                    <p>Transição segura para AWS, Azure ou Google Cloud com otimização de custos e performance garantida.</p>
+                </div>
+                <div class="srv">
+                    <h3>Suporte Técnico</h3>
+                    <p>Suporte 24/7 para infraestrutura, monitoramento proativo e resolução rápida de incidentes críticos.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="fundadores card animate-fade-up">
+            <h2>Nossos Fundadores</h2>
+            <table class="tabela-fundadores">
+                <thead>
+                    <tr>
+                        <th>Cargo</th>
+                        <th>Nome</th>
+                        <th>Experiência</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>CEO</td>
+                        <td>Francisco Antônio Luz</td>
+                        <td>Ciência da Computação pela Cesar School. Especialista em cloud computing e DevOps.</td>
+                    </tr>
+                    <tr>
+                        <td>CTO</td>
+                        <td>Camila Cirne</td>
+                        <td>Ciência da Computação pela Cesar School.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <h3 style="color: white; margin-bottom: 1rem;">Contato</h3>
+                    <ul class="contatos">
+                        <li>📞 (81) 0000-0000</li>
+                        <li>📱 (81) 19521-9324</li>
+                        <li>✉️ <a href="mailto:contato@fogtech.com.br" style="color: #38bdf8;">contato@fogtech.com.br</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 style="color: white; margin-bottom: 1rem;">Endereço</h3>
+                    <p>Rua da Inovação, 1337<br>
+                    Boa Viagem, Recife/PE<br>
+                    CEP: 51021-000</p>
+                </div>
+                <div>
+                    <h3 style="color: white; margin-bottom: 1rem;">Formas de Pagamento</h3>
+                    <div class="pagamentos">
+                        <span class="pay">VISA</span>
+                        <span class="pay mc">MC</span>
+                        <span class="pay pix">PIX</span>
+                        <span class="pay">BITCOIN</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/common.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate-fade-up');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.card:not(.animate-fade-up)').forEach(el => {
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
 </html>
