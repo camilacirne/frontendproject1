@@ -1,0 +1,37 @@
+<html lang="pt-br">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Login de clientes — FogTech</title>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body data-page="login">
+<header class="header sm">
+<img src="assets/logo.png" alt="Logo" class="logo" />
+<h1>Login de clientes</h1>
+<a href="troca-senha.html" class="link">Trocar senha</a>
+</header>
+
+
+<main class="container narrow">
+<form id="formLogin" class="form card" novalidate>
+<div class="field">
+<label for="lg-email">Login</label>
+<input id="lg-email" name="email" type="email" placeholder="email@email.com" required />
+</div>
+<div class="field">
+<label for="lg-senha">Senha</label>
+<input id="lg-senha" name="senha" type="password" required />
+</div>
+<div class="actions">
+<button type="submit" class="btn btn-ok">Realizar Login</button>
+<button type="button" id="btnLimparLogin" class="btn btn-alt">Limpar</button>
+</div>
+<p class="hint">Não tem conta? <a href="cadastro.html">Cadastre-se</a>.</p>
+<p id="loginMsg" class="msg" aria-live="polite"></p>
+</form>
+</main>
+<script src="js/common.js"></script>
+<script src="js/login.js"></script>
+</body>
+</html>

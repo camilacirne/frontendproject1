@@ -1,0 +1,69 @@
+<html lang="pt-br">
+<body data-page="carrinho">
+<header class="header sm">
+<img src="assets/logo.png" alt="Logo" class="logo" />
+<h1>Solicitação de Serviços de TI</h1>
+</header>
+
+
+<main class="container">
+<section class="card">
+<h2>Cliente</h2>
+<p>Nome: <strong id="lblNome">Usuário Fixo</strong></p>
+<p>Login (e-mail): <strong id="lblLogin">usuario@fogtech.com.br</strong></p>
+<p class="hint">(Valores fixos nesta versão, conforme requisito.)</p>
+</section>
+
+
+<section class="card">
+<h2>Solicitações existentes</h2>
+<table id="tblSolic" class="tabela-solic">
+<thead>
+<tr>
+<th>Data do pedido</th>
+<th>Nº Solicitação</th>
+<th>Serviço</th>
+<th>Status</th>
+<th>Preço (R$)</th>
+<th>Data prevista</th>
+<th>Ações</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+</section>
+
+
+<section class="card form" id="secNova">
+<h2>Nova solicitação</h2>
+<div class="field">
+<label for="sv">Serviço de TI</label>
+<select id="sv">
+<option value="DEV">Desenvolvimento Web</option>
+<option value="SEC">Pentest Aplicação</option>
+<option value="CLOUD">Migração para Cloud</option>
+<option value="SUP">Suporte Infraestrutural</option>
+</select>
+</div>
+<div class="field two">
+<div><label>Preço</label><span id="lblPreco" class="pill">—</span></div>
+<div><label>Prazo (dias)</label><span id="lblPrazo" class="pill">—</span></div>
+</div>
+<div class="field">
+<label>Data prevista de atendimento</label>
+<span id="lblDataPrev" class="pill">—</span>
+</div>
+<div class="field">
+<label>Status</label>
+<span id="lblStatus" class="pill">EM ELABORAÇÃO</span>
+</div>
+<div class="actions">
+<button id="btnIncluirSolic" class="btn btn-ok" type="button">Incluir na tabela</button>
+</div>
+</section>
+</main>
+<script src="js/common.js"></script>
+<script src="js/carrinho.js"></script>
+</body>
+</html>

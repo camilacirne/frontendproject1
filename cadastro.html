@@ -1,0 +1,68 @@
+<html lang="pt-br">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Cadastro de clientes — FogTech</title>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body data-page="cadastro">
+<header class="header sm">
+<img src="assets/logo.png" alt="Logo" class="logo" />
+<h1>Cadastro de clientes</h1>
+</header>
+
+
+<main class="container narrow">
+<div class="password-rules card">
+<h2>Regras de senha</h2>
+<p>Idênticas à página de troca de senha. Permitidos: <code>@ # $ % & * ! ? / \ | - _ + . =</code>. Proibidos: <code>¨ { } [ ] ´ ` ~ ^ : ; &lt; &gt; , “ ‘</code>.</p>
+</div>
+
+
+<form id="formCadastro" class="form card" novalidate>
+<fieldset>
+<legend>Credenciais</legend>
+<div class="field"><label for="cd-email">E-mail (login)</label><input id="cd-email" name="email" type="email" required /></div>
+<div class="field"><label for="cd-senha">Senha</label><input id="cd-senha" name="senha" type="password" required /></div>
+<div class="field"><label for="cd-conf">Confirmação</label><input id="cd-conf" name="confirm" type="password" required /></div>
+</fieldset>
+
+
+<fieldset>
+<legend>Dados pessoais</legend>
+<div class="field"><label for="cd-nome">Nome completo</label><input id="cd-nome" name="nome" type="text" placeholder="Nome e sobrenome" required /></div>
+<div class="field"><label for="cd-cpf">CPF</label><input id="cd-cpf" name="cpf" type="text" placeholder="000.000.000-00" maxlength="14" required /></div>
+<div class="field"><label for="cd-nasc">Data de nascimento</label><input id="cd-nasc" name="nasc" type="date" required /></div>
+<div class="field"><label for="cd-zap">Celular/WhatsApp (opcional)</label><input id="cd-zap" name="zap" type="text" placeholder="(00) 90000-0000" /></div>
+<div class="field">
+<span>Estado civil</span>
+<label><input type="radio" name="civil" value="solteiro" checked /> Solteiro(a)</label>
+<label><input type="radio" name="civil" value="casado" /> Casado(a)</label>
+<label><input type="radio" name="civil" value="divorciado" /> Divorciado(a)</label>
+<label><input type="radio" name="civil" value="viuvo" /> Viúvo(a)</label>
+</div>
+<div class="field">
+<label for="cd-escolar">Escolaridade</label>
+<select id="cd-escolar" name="escolar">
+<option>1º grau incompleto</option>
+<option>1º grau completo</option>
+<option selected>2º grau completo</option>
+<option>Nível superior</option>
+<option>Pós-graduado</option>
+</select>
+</div>
+</fieldset>
+
+
+<div class="actions">
+<button type="submit" class="btn btn-ok">Incluir</button>
+<button type="button" id="btnLimparCad" class="btn btn-alt">Limpar</button>
+<button type="button" id="btnVoltarCad" class="btn">Voltar</button>
+</div>
+<p id="cadMsg" class="msg" aria-live="polite"></p>
+</form>
+</main>
+<script src="js/common.js"></script>
+<script src="js/cadastro.js"></script>
+</body>
+</html>
