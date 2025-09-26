@@ -95,11 +95,8 @@
         
         // Verificar caracteres especiais proibidos
         const caracteresProibidos = (window.Fog.FORBIDDEN || '') + (window.Fog.ALLOWED || '');
-
-        // Escapa tudo que pode quebrar uma classe de caracteres, inclusive o hífen
         const escaped = caracteresProibidos.replace(/[-\\^$*+?.()|[\]{}]/g, '\\$&');
 
-        // Classe de caracteres segura
         const regexProibidos = new RegExp('[' + escaped + ']', 'u');
 
         if (regexProibidos.test(nomeCompleto)) {
