@@ -569,7 +569,7 @@ p {
 
 .tabela-fundadores th,
 .tabela-solic th {
-  background: var(--gradient-primary);
+  background: #1e293b ;
   color: white;
   font-weight: 600;
   text-transform: uppercase;
@@ -681,7 +681,7 @@ p {
 }
 
 .long-content .overflow-box::-webkit-scrollbar-thumb {
-  background: var(--brand-300);
+  background: var(--brand-500);
   border-radius: 3px;
 }
 
