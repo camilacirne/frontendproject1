@@ -101,14 +101,33 @@ body {
   width: auto;
 }
 
+.logo-fig {
+  margin: 0;
+  display: inline-block;
+}
+
+.logo-link,
+.logo-fig a {
+  text-decoration: none;
+  display: inline-block;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.logo-link:hover,
+.logo-fig a:hover {
+  transform: scale(1.05);
+}
+
+.logo-link:hover .logo,
+.logo-fig a:hover .logo {
+  filter: brightness(1.1);
+}
+
 .logo {
   height: 200px;
   width: auto;
-  transition: transform 0.3s ease;
-}
-
-.logo:hover {
-  transform: scale(1.05);
+  transition: filter 0.3s ease;
 }
 
 .slogan {

@@ -1,52 +1,71 @@
+<!DOCTYPE html>
 <html lang="pt-br">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Troca de senha — FogTech</title>
-<link rel="stylesheet" href="css/styles.css">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Troca de senha — FogTech</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body data-page="troca-senha">
-<header class="header sm">
-<img src="assets/logo.png" alt="Logo" class="logo" />
-<h1>Troca de senha de clientes</h1>
-</header>
+    <header class="header sm">
+        <a href="index.html" class="logo-link" title="Voltar para página inicial">
+            <img src="assets/logo.png" alt="Logo FogTech" class="logo" />
+        </a>
+        <h1>Troca de senha de clientes</h1>
+    </header>
 
+    <main class="container narrow">
+        <div class="password-rules card" id="rulesBox">
+            <h2>Regras da senha</h2>
+            <p>A senha deve ter <strong>pelo menos 6 caracteres</strong> e conter:</p>
+            <ul>
+                <li>Ao menos <strong>1 dígito</strong> (0-9)</li>
+                <li>Ao menos <strong>1 letra maiúscula</strong> (A-Z)</li>
+                <li>Ao menos <strong>1 caractere especial permitido</strong>: <code>@ # $ % & * ! ? / \ | - _ + . =</code></li>
+            </ul>
+            <p><strong>Não são permitidos</strong>: <code>¨ { } [ ] ´ ` ~ ^ : ; &lt; &gt; , " '</code></p>
+        </div>
 
-<main class="container narrow">
-<div class="password-rules card" id="rulesBox">
-<h2>Regras da senha</h2>
-<p>A senha deve ter <strong>pelo menos 6 caracteres</strong> e conter:
-<ul>
-<li>Ao menos <strong>1 dígito</strong> (0-9)</li>
-<li>Ao menos <strong>1 letra maiúscula</strong> (A-Z)</li>
-<li>Ao menos <strong>1 caractere especial permitido</strong>: <code>@ # $ % & * ! ? / \ | - _ + . =</code></li>
-</ul>
-<p><strong>Não são permitidos </strong>: <code>¨ { } [ ] ´ ` ~ ^ : ; &lt; &gt; , “ ‘</code></p>
-</p>
-</div>
+        <form id="formTroca" class="form card" novalidate>
+            <div class="field">
+                <label for="ts-email">Login (e-mail)</label>
+                <input id="ts-email" name="email" type="email" required />
+            </div>
+            <div class="field">
+                <label for="ts-senha">Nova senha</label>
+                <input id="ts-senha" name="senha" type="password" required />
+            </div>
+            <div class="field">
+                <label for="ts-conf">Confirmação de senha</label>
+                <input id="ts-conf" name="confirm" type="password" required />
+            </div>
+            <div class="actions">
+                <button type="submit" class="btn btn-ok">Trocar Senha</button>
+                <button type="button" id="btnLimparTroca" class="btn btn-alt">Limpar</button>
+                <button type="button" id="btnVoltarTroca" class="btn">Voltar</button>
+            </div>
+            <p id="trocaMsg" class="msg" aria-live="polite"></p>
+        </form>
+    </main>
 
-
-<form id="formTroca" class="form card" novalidate>
-<div class="field">
-<label for="ts-email">Login</label>
-<input id="ts-email" name="email" type="email" required />
-</div>
-<div class="field">
-<label for="ts-senha">Nova senha</label>
-<input id="ts-senha" name="senha" type="password" required />
-</div>
-<div class="field">
-<label for="ts-conf">Confirmação de senha</label>
-<input id="ts-conf" name="confirm" type="password" required />
-</div>
-<div class="actions">
-<button type="submit" class="btn btn-ok">Trocar Senha</button>
-<button type="button" id="btnLimparTroca" class="btn btn-alt">Limpar</button>
-</div>
-<p id="trocaMsg" class="msg" aria-live="polite"></p>
-</form>
-</main>
-<script src="js/common.js"></script>
-<script src="js/trocaSenha.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/trocaSenha.js"></script>
+    <style>
+        .logo-link {
+            text-decoration: none;
+            transition: transform 0.2s ease;
+        }
+        
+        .logo-link:hover {
+            transform: scale(1.05);
+        }
+        
+        .logo-link:hover .logo {
+            filter: brightness(1.1);
+        }
+    </style>
 </body>
 </html>

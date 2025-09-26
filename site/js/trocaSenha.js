@@ -5,6 +5,7 @@
     const form = document.getElementById('formTroca');
     const msgElement = document.getElementById('trocaMsg');
     const btnLimpar = document.getElementById('btnLimparTroca');
+    const btnVoltar = document.getElementById('btnVoltarTroca');
     
     const emailInput = document.getElementById('ts-email');
     const senhaInput = document.getElementById('ts-senha');
@@ -248,6 +249,19 @@
     if (btnLimpar) {
         btnLimpar.addEventListener('click', limparFormulario);
     }
+
+    // Botão voltar
+    if (btnVoltar) {
+    btnVoltar.addEventListener('click', function() {
+        if (emailInput.value || senhaInput.value || confirmInput.value) {
+            if (confirm('Deseja realmente voltar? Os dados preenchidos serão perdidos.')) {
+                window.history.back();
+            }
+        } else {
+            window.history.back();
+        }
+    });
+}
     
     // Validação em tempo real
     emailInput.addEventListener('blur', function() {
