@@ -1,0 +1,104 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>FogTech — Soluções de TI</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root { 
+            --brand-700: #4ca626; 
+            --brand-500: #0ea5e9;
+        }
+        
+        .hero h1 { 
+            letter-spacing: -0.02em; 
+        }
+        
+        /* Animações específicas da home */
+        .animate-fade-up {
+            animation: fadeUp 0.6s ease-out forwards;
+            opacity: 0;
+        }
+        
+        .animate-fade-up:nth-child(2) { animation-delay: 0.2s; }
+        .animate-fade-up:nth-child(3) { animation-delay: 0.4s; }
+        .animate-fade-up:nth-child(4) { animation-delay: 0.6s; }
+        
+        @keyframes fadeUp {
+            from { 
+                opacity: 0; 
+                transform: translateY(30px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0); 
+            }
+        }
+    </style>
+</head>
+<body data-page="home">
+    <header class="header">
+        <div class="container">
+            <table class="header-table">
+                <tr>
+                    <td class="logo-td">
+                        <figure class="logo-fig">
+                            <img src="assets/logo.png" alt="Logo FogTech" class="logo" />
+                            <figcaption class="sr-only">FogTech</figcaption>
+                        </figure>
+                    </td>
+                    <td>
+                        <p class="slogan">Conectando ideias, entregando tecnologia.</p>
+                    </td>
+                    <td class="links-td">
+                        <nav class="topnav">
+                            <a id="lnk-login" href="login.html" class="btn btn-sm">Login</a>
+                            <a id="lnk-cadastro" href="cadastro.html" class="btn btn-sm btn-alt">Cadastrar</a>
+                            <a id="lnk-carrinho" href="carrinho.html" class="btn btn-sm btn-ok" hidden>Solicitar Serviços</a>
+                        </nav>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="hero card animate-fade-up">
+            <h1><em>Bem-vindo(a) à FogTech</em></h1>
+            <p>Nascemos para simplificar a jornada digital de pequenas e médias empresas. Nossa equipe reúne experiência em <strong>segurança</strong>, <strong>desenvolvimento</strong> e <strong>infraestrutura</strong> para acelerar a sua transformação.</p>
+        </section>
+
+        <section class="historia card long-content animate-fade-up" id="historia">
+            <h2>Nossa História</h2>
+            <p>Fundada em 2022 por dois cientistas da computação apaixonados por resolver problemas reais, a FogTech cresceu com foco em excelência técnica e atendimento próximo. De Recife para o mundo, entregamos soluções em nuvem, automação e DevOps.</p>
+            <div class="overflow-box">
+                <p>Em nossos primeiros anos, ajudamos clientes a migrarem para arquiteturas modernas, reduzindo custos operacionais em até 40% e aumentando a confiabilidade dos sistemas. Com certificações em principais provedores de nuvem (AWS, Azure, Google Cloud) e metodologias ágeis, elevamos os padrões de entrega, mantendo sempre a cultura de aprendizado contínuo e inovação.</p>
+                <p>Hoje atuamos em diversos setores, com projetos que vão desde automações até plataformas web de alto desempenho, sempre priorizando segurança, escalabilidade e experiência do usuário. Nossa missão é democratizar o acesso à tecnologia de ponta.</p>
+            </div>
+        </section>
+
+        <section class="video card animate-fade-up">
+            <h2>Vídeo Institucional</h2>
+            <div class="video-wrapper">
+                <iframe width="560" height="315" src="https://www.youtube.com/watch?v=J4G6f8EiKX8" title="Vídeo institucional FogTech" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </div>
+        </section>
+
+        <section class="galeria card animate-fade-up">
+            <h2>Nossas Instalações e Equipe</h2>
+            <div class="grid-galeria">
+                <img src="assets/office1.jpg" alt="Escritório 1" />
+                <img src="assets/office2.jpg" alt="Escritório 2" />
+                <img src="assets/team1.jpg" alt="Equipe 1" />
+                <img src="assets/team2.jpg" alt="Equipe 2" />
+            </div>
+        </section>
+
+
+<section class="servicos card">
+</html>
