@@ -1,37 +1,50 @@
+<!DOCTYPE html>
 <html lang="pt-br">
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Login de clientes — FogTech</title>
-<link rel="stylesheet" href="css/styles.css">
-</head>
-<body data-page="login">
-<header class="header sm">
-<img src="assets/logo.png" alt="Logo" class="logo" />
-<h1>Login de clientes</h1>
-<a href="troca-senha.html" class="link">Trocar senha</a>
-</header>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Login de clientes — FogTech</title>
+        <link rel="stylesheet" href="css/styles.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+        <style>
+        :root { 
+            --brand-700: #4ca626; 
+            --brand-500: #0ea5e9;
+        }
+    </style>
+    </head>
+    <body data-page="login">
+        <header class="header sm">
+            <a href="index.html" class="logo-link" title="Voltar para página inicial">
+                <img src="assets/logo.png" alt="Logo FogTech" class="logo" />
+            </a>
+            <h1>Login de clientes</h1>
+        </header>
 
-
-<main class="container narrow">
-<form id="formLogin" class="form card" novalidate>
-<div class="field">
-<label for="lg-email">Login</label>
-<input id="lg-email" name="email" type="email" placeholder="email@email.com" required />
-</div>
-<div class="field">
-<label for="lg-senha">Senha</label>
-<input id="lg-senha" name="senha" type="password" required />
-</div>
-<div class="actions">
-<button type="submit" class="btn btn-ok">Realizar Login</button>
-<button type="button" id="btnLimparLogin" class="btn btn-alt">Limpar</button>
-</div>
-<p class="hint">Não tem conta? <a href="cadastro.html">Cadastre-se</a>.</p>
-<p id="loginMsg" class="msg" aria-live="polite"></p>
-</form>
-</main>
-<script src="js/common.js"></script>
-<script src="js/login.js"></script>
-</body>
+        <main class="container narrow">
+            <form id="formLogin" class="form card" novalidate>
+                <div class="field">
+                    <label for="lg-email">Login</label>
+                    <input id="lg-email" name="email" type="email" placeholder="email@email.com" required />
+                </div>
+                <div class="field">
+                    <label for="lg-senha">Senha</label>
+                    <input id="lg-senha" name="senha" type="password" required />
+                </div>
+                <div class="actions">
+                    <button type="submit" class="btn btn-ok">Realizar Login</button>
+                    <button type="button" id="btnLimparLogin" class="btn btn-alt">Limpar</button>
+                </div>
+                <p></p>
+                <p class="hint">Não tem conta? <a href="cadastro.html">Cadastre-se</a>.</p>
+                <p class="hint">Deseja trocar a senha? <a href="troca-senha.html">Trocar senha</a>.</p>
+                <p id="loginMsg" class="msg" aria-live="polite"></p>
+            </form>
+        </main>
+        
+        <script src="js/common.js"></script>
+        <script src="js/login.js"></script>
+    </body>
 </html>
