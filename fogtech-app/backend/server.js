@@ -348,6 +348,11 @@ app.post('/api/solicitacoes/atualizar', async (req, res) => {
   }
 });
 
+// Health check endpoint para Docker
+app.get('/api/health', (req, res) => {
+  res.status(200).json({ status: 'ok', timestamp: new Date().toISOString() });
+});
+
 // Inicializar servidor
 initDatabase().then(() => {
   app.listen(PORT, () => {

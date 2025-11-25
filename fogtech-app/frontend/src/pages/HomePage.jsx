@@ -36,7 +36,7 @@ function HomePage() {
       <section class="video card animate-fade-up">
             <h2>Vídeo Institucional</h2>
             <div class="video-wrapper">
-                <iframe width="560" height="315" src="https://www.youtube.com/watch?v=J4G6f8EiKX8" title="Vídeo institucional FogTech" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/J4G6f8EiKX8?si=AjskWQXX_yNn3Ia8" title="Vídeo institucional FogTech" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
             </div>
         </section>
 
