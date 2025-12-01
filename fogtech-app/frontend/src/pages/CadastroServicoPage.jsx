@@ -16,7 +16,6 @@ const CadastroServicoPage = ({ showToast }) => {
     e.preventDefault();
     setMessage({ text: '', type: '' });
 
-    // Validações
     if (!formData.codigo || !formData.nome || !formData.preco || !formData.prazo_dias) {
       setMessage({ text: 'Todos os campos obrigatórios devem ser preenchidos.', type: 'error' });
       return;
@@ -61,7 +60,6 @@ const CadastroServicoPage = ({ showToast }) => {
         setMessage({ text: 'Serviço cadastrado com sucesso!', type: 'ok' });
         showToast('Serviço cadastrado com sucesso!', 'success');
         
-        // Limpar formulário
         setFormData({
           codigo: '',
           nome: '',
@@ -92,9 +90,7 @@ const CadastroServicoPage = ({ showToast }) => {
   };
 
   const handlePriceChange = (value) => {
-    // Permitir apenas números e ponto decimal
     const sanitized = value.replace(/[^\d.]/g, '');
-    // Garantir apenas um ponto decimal
     const parts = sanitized.split('.');
     if (parts.length > 2) {
       return;
@@ -103,7 +99,6 @@ const CadastroServicoPage = ({ showToast }) => {
   };
 
   const handlePrazoChange = (value) => {
-    // Permitir apenas números inteiros
     const sanitized = value.replace(/\D/g, '');
     setFormData({ ...formData, prazo_dias: sanitized });
   };

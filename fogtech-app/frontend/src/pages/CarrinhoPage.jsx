@@ -16,19 +16,17 @@ function CarrinhoPage({ user, onNavigate, showToast }) {
     try {
       setLoading(true);
 
-      // Carregar serviços
       const resServicos = await apiService.listarServicos();
-      console.log('Serviços carregados:', resServicos); // Debug
+      console.log('Serviços carregados:', resServicos);
       
       if (resServicos.servicos && resServicos.servicos.length > 0) {
         setServicos(resServicos.servicos);
         setServicoSelecionado(resServicos.servicos[0].codigo);
       }
 
-      // Carregar solicitações
       if (user?.email) {
         const resSolicitacoes = await apiService.listarSolicitacoes(user.email);
-        console.log('Solicitações carregadas:', resSolicitacoes); // Debug
+        console.log('Solicitações carregadas:', resSolicitacoes);
         
         if (resSolicitacoes.solicitacoes) {
           setSolicitacoes(resSolicitacoes.solicitacoes);
@@ -45,79 +43,83 @@ function CarrinhoPage({ user, onNavigate, showToast }) {
   const servico = servicos.find(s => s.codigo === servicoSelecionado);
   const dataPrevista = servico ? FogUtils.addDays(new Date(), servico.prazo_dias) : new Date();
 
-  const handleIncluir = () => {
+  const handleIncluir = async () => {
     if (!servico) {
       showToast('Selecione um serviço', 'error');
       return;
     }
 
-    const novaSolicitacao = {
-      id: Date.now(),
-      numero_solicitacao: Math.floor(1000 + Math.random() * 9000),
-      servico_codigo: servico.codigo,
-      servico_nome: servico.nome,
-      servico_ti_id: servico.id, // ← Importante: guardar o ID também
-      status: 'EM ELABORAÇÃO',
-      data_pedido: new Date().toISOString().split('T')[0],
-      data_prevista: dataPrevista.toISOString().split('T')[0],
-      preco: servico.preco
-    };
-
-    setSolicitacoes([...solicitacoes, novaSolicitacao]);
-    showToast(`Solicitação #${novaSolicitacao.numero_solicitacao} adicionada!`, 'success');
-  };
-
-  const handleSalvar = async () => {
     try {
-      if (solicitacoes.length === 0) {
-        showToast('Adicione pelo menos uma solicitação antes de salvar', 'error');
-        return;
-      }
+      let numeroSolicitacao;
+      do {
+        numeroSolicitacao = Math.floor(1000 + Math.random() * 9000);
+      } while (solicitacoes.some(s => s.numero_solicitacao === numeroSolicitacao));
 
-      // Mapear para o formato da API
-      const solicitacoesParaApi = solicitacoes.map(sol => {
-        // Se já tem servico_ti_id, usa ele
-        let servicoId = sol.servico_ti_id;
-        
-        // Se não tem, busca pelo código
-        if (!servicoId) {
-          const servicoEncontrado = servicos.find(s => s.codigo === sol.servico_codigo);
-          if (!servicoEncontrado) {
-            throw new Error(`Serviço ${sol.servico_codigo} não encontrado`);
-          }
-          servicoId = servicoEncontrado.id;
-        }
-        
-        return {
-          servico_ti_id: servicoId,
-          numero_solicitacao: sol.numero_solicitacao.toString(),
-          status: sol.status || 'Pendente',
-          data_pedido: sol.data_pedido,
-          data_prevista: sol.data_prevista,
-          preco: parseFloat(sol.preco)
-        };
-      });
+      const novaSolicitacao = {
+        id: Date.now(),
+        numero_solicitacao: numeroSolicitacao,
+        servico_codigo: servico.codigo,
+        servico_nome: servico.nome,
+        servico_ti_id: servico.id,
+        status: 'EM ELABORAÇÃO',
+        data_pedido: new Date().toISOString().split('T')[0],
+        data_prevista: dataPrevista.toISOString().split('T')[0],
+        preco: servico.preco
+      };
 
-      console.log('📤 Enviando para API:', {
-        email: user.email,
-        solicitacoes: solicitacoesParaApi
-      });
+      const novasSolicitacoes = [...solicitacoes, novaSolicitacao];
+
+      const solicitacoesParaApi = novasSolicitacoes.map(sol => ({
+        servico_ti_id: sol.servico_ti_id,
+        numero_solicitacao: sol.numero_solicitacao.toString(),
+        status: sol.status || 'Pendente',
+        data_pedido: sol.data_pedido,
+        data_prevista: sol.data_prevista,
+        preco: parseFloat(sol.preco)
+      }));
 
       await apiService.atualizarSolicitacoes(user.email, solicitacoesParaApi);
-      showToast('✅ Solicitações salvas com sucesso!', 'success');
-      
-      // Recarregar dados do servidor
-      await carregarDados();
+      setSolicitacoes(novasSolicitacoes);
+      showToast(`Solicitação #${novaSolicitacao.numero_solicitacao} adicionada!`, 'success');
     } catch (error) {
-      console.error('❌ Erro ao salvar:', error);
-      showToast(error.message || 'Erro ao salvar solicitações', 'error');
+      console.error('❌ Erro ao incluir:', error);
+      showToast(error.message || 'Erro ao incluir solicitação', 'error');
     }
   };
 
-  const handleExcluir = (numero) => {
+  const handleExcluir = async (numero) => {
     if (window.confirm(`Deseja excluir a solicitação #${numero}?`)) {
-      setSolicitacoes(solicitacoes.filter(s => s.numero_solicitacao !== numero));
-      showToast('Solicitação removida', 'info');
+      try {
+        const novasSolicitacoes = solicitacoes.filter(s => s.numero_solicitacao !== numero);
+        
+        const solicitacoesParaApi = novasSolicitacoes.map(sol => {
+          let servicoId = sol.servico_ti_id;
+          
+          if (!servicoId) {
+            const servicoEncontrado = servicos.find(s => s.codigo === sol.servico_codigo);
+            if (!servicoEncontrado) {
+              throw new Error(`Serviço ${sol.servico_codigo} não encontrado`);
+            }
+            servicoId = servicoEncontrado.id;
+          }
+          
+          return {
+            servico_ti_id: servicoId,
+            numero_solicitacao: sol.numero_solicitacao.toString(),
+            status: sol.status || 'Pendente',
+            data_pedido: sol.data_pedido,
+            data_prevista: sol.data_prevista,
+            preco: parseFloat(sol.preco)
+          };
+        });
+
+        await apiService.atualizarSolicitacoes(user.email, solicitacoesParaApi);
+        setSolicitacoes(novasSolicitacoes);
+        showToast('Solicitação excluída com sucesso!', 'success');
+      } catch (error) {
+        console.error('❌ Erro ao excluir:', error);
+        showToast(error.message || 'Erro ao excluir solicitação', 'error');
+      }
     }
   };
 
@@ -232,22 +234,9 @@ function CarrinhoPage({ user, onNavigate, showToast }) {
 
         <div className="actions">
           <button className="btn btn-ok" onClick={handleIncluir}>
-            + Incluir na tabela
-          </button>
-          <button 
-            className="btn btn-alt" 
-            onClick={handleSalvar}
-            disabled={solicitacoes.length === 0}
-            style={{ opacity: solicitacoes.length === 0 ? 0.5 : 1 }}
-          >
-            💾 Salvar no servidor
+            + Adicionar Solicitação
           </button>
         </div>
-
-        <p className="hint" style={{ marginTop: '1rem' }}>
-          💡 <strong>Dica:</strong> Primeiro adicione uma ou mais solicitações usando "+ Incluir na tabela", 
-          depois clique em "💾 Salvar no servidor" para enviar tudo de uma vez.
-        </p>
       </section>
     </main>
   );

@@ -1,15 +1,6 @@
-// ========================================
-// FOG UTILS - Funções Utilitárias
-// ========================================
-
 const FogUtils = {
-  // Constantes
   ALLOWED: '@#$%&*!?/\\|-_+.=',
   FORBIDDEN: '¨{}[]´`~^:;<>,"\'',
-  
-  // ========================================
-  // VALIDAÇÕES
-  // ========================================
   
   isEmail(email) {
     if (!email || typeof email !== 'string') return false;
@@ -88,10 +79,6 @@ const FogUtils = {
     return age >= 18;
   },
   
-  // ========================================
-  // FORMATAÇÃO
-  // ========================================
-  
   formatCPF(value) {
     value = value.replace(/\D/g, '');
     if (value.length > 11) value = value.slice(0, 11);
@@ -130,16 +117,14 @@ const FogUtils = {
   },
   
   formatDate(date) {
-    return new Date(date).toLocaleDateString('pt-BR', {
+    if (!date) return '';
+    const dateStr = typeof date === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(date) ? `${date}T12:00:00` : date;
+    return new Date(dateStr).toLocaleDateString('pt-BR', {
       day: '2-digit',
       month: '2-digit',
       year: 'numeric'
     });
   },
-  
-  // ========================================
-  // UTILITÁRIOS
-  // ========================================
   
   addDays(date, days) {
     const result = new Date(date);

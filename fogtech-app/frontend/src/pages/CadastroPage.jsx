@@ -34,7 +34,6 @@ function CadastroPage({ onNavigate, onRegister, showToast }) {
     e.preventDefault();
     setError('');
 
-    // Validações
     if (!FogUtils.isEmail(formData.email)) {
       setError('Email inválido');
       return;
@@ -88,7 +87,6 @@ function CadastroPage({ onNavigate, onRegister, showToast }) {
       await apiService.cadastrarCliente(dadosCadastro);
       showToast('Cadastro realizado com sucesso!', 'success');
       
-      // Auto-login após cadastro
       const loginData = await apiService.login(formData.email, formData.senha);
       onRegister(loginData.usuario);
       
@@ -161,7 +159,7 @@ function CadastroPage({ onNavigate, onRegister, showToast }) {
               <span className="hint">Informe nome e sobrenome</span>
             </div>
 
-            <div className="field">
+            <div className="field two">
               <div>
                 <label>CPF *</label>
                 <input

@@ -64,7 +64,6 @@ function App() {
     return () => window.removeEventListener('hashchange', handleHashChange);
   }, []);
 
-  // Proteção de rotas
   useEffect(() => {
     if ((currentPage === 'carrinho' || currentPage === 'cadastro-servico') && !user) {
       showToast('Faça login para acessar esta página', 'error');

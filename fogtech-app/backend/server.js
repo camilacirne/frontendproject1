@@ -24,7 +24,6 @@ async function initDatabase() {
 
     console.log('✓ Conectado ao MySQL!');
 
-    // Criar tabelas
     await db.execute(`
       CREATE TABLE IF NOT EXISTS cliente (
         id INT AUTO_INCREMENT PRIMARY KEY,
@@ -76,7 +75,11 @@ async function initDatabase() {
 
     console.log('✓ Tabelas verificadas/criadas');
 
-    // Inserir serviços padrão
+    await db.execute(`
+      ALTER TABLE solicitacao_servico 
+      MODIFY COLUMN status ENUM('Pendente', 'Em Andamento', 'Concluído', 'Cancelado', 'EM ELABORAÇÃO') DEFAULT 'Pendente'
+    `).catch(() => {});
+
     const [servicos] = await db.execute('SELECT COUNT(*) as count FROM servico_ti');
     if (servicos[0].count === 0) {
       await db.execute(`
@@ -95,7 +98,6 @@ async function initDatabase() {
   }
 }
 
-// 1. Login
 app.post('/api/auth/login', async (req, res) => {
   try {
     const { email, senha } = req.body;
@@ -117,6 +119,7 @@ app.post('/api/auth/login', async (req, res) => {
     }
 
     res.json({
+      status: 'sucesso',
       mensagem: 'Login realizado com sucesso',
       usuario: {
         id: user.id,
@@ -130,7 +133,6 @@ app.post('/api/auth/login', async (req, res) => {
   }
 });
 
-// 2. Trocar senha
 app.post('/api/auth/trocar-senha', async (req, res) => {
   try {
     const { email, senha_atual, nova_senha } = req.body;
@@ -158,19 +160,17 @@ app.post('/api/auth/trocar-senha', async (req, res) => {
       [hashNovaSenha, email]
     );
 
-    res.json({ mensagem: 'Senha alterada com sucesso' });
+    res.json({ status: 'sucesso', mensagem: 'Senha alterada com sucesso' });
   } catch (error) {
     console.error('Erro ao trocar senha:', error);
     res.status(500).json({ mensagem: 'Erro ao trocar senha' });
   }
 });
 
-// 3. Cadastrar cliente
 app.post('/api/clientes', async (req, res) => {
   try {
     const { nome, email, senha, cpf, data_nascimento, telefone, estado_civil, escolaridade } = req.body;
 
-    // Verificar se email já existe
     const [existingEmail] = await db.execute(
       'SELECT id FROM cliente WHERE email = ?',
       [email]
@@ -180,7 +180,6 @@ app.post('/api/clientes', async (req, res) => {
       return res.status(400).json({ mensagem: 'Email já cadastrado' });
     }
 
-    // Verificar se CPF já existe
     const [existingCPF] = await db.execute(
       'SELECT id FROM cliente WHERE cpf = ?',
       [cpf]
@@ -199,6 +198,7 @@ app.post('/api/clientes', async (req, res) => {
     );
 
     res.status(201).json({
+      status: 'sucesso',
       mensagem: 'Cliente cadastrado com sucesso',
       cliente_id: result.insertId
     });
@@ -208,7 +208,6 @@ app.post('/api/clientes', async (req, res) => {
   }
 });
 
-// 4. Cadastrar serviço
 app.post('/api/servicos', async (req, res) => {
   try {
     const { codigo, nome, descricao, preco, prazo_dias } = req.body;
@@ -229,6 +228,7 @@ app.post('/api/servicos', async (req, res) => {
     );
 
     res.status(201).json({
+      status: 'sucesso',
       mensagem: 'Serviço cadastrado com sucesso',
       servico_id: result.insertId
     });
@@ -238,7 +238,6 @@ app.post('/api/servicos', async (req, res) => {
   }
 });
 
-// 5. Listar serviços
 app.get('/api/servicos', async (req, res) => {
   try {
     const [servicos] = await db.execute(
@@ -252,7 +251,6 @@ app.get('/api/servicos', async (req, res) => {
   }
 });
 
-// 6. Listar solicitações do usuário
 app.get('/api/solicitacoes/:email', async (req, res) => {
   try {
     const { email } = req.params;
@@ -291,7 +289,6 @@ app.get('/api/solicitacoes/:email', async (req, res) => {
   }
 });
 
-// 7. Atualizar solicitações
 app.post('/api/solicitacoes/atualizar', async (req, res) => {
   try {
     const { email, solicitacoes } = req.body;
@@ -307,17 +304,14 @@ app.post('/api/solicitacoes/atualizar', async (req, res) => {
 
     const clienteId = cliente[0].id;
 
-    // Iniciar transação
     await db.beginTransaction();
 
     try {
-      // Deletar solicitações antigas
       await db.execute(
         'DELETE FROM solicitacao_servico WHERE cliente_id = ?',
         [clienteId]
       );
 
-      // Inserir novas solicitações
       for (const sol of solicitacoes) {
         await db.execute(
           `INSERT INTO solicitacao_servico 
@@ -337,7 +331,7 @@ app.post('/api/solicitacoes/atualizar', async (req, res) => {
       }
 
       await db.commit();
-      res.json({ mensagem: 'Solicitações atualizadas com sucesso' });
+      res.json({ status: 'sucesso', mensagem: 'Solicitações atualizadas com sucesso' });
     } catch (error) {
       await db.rollback();
       throw error;
@@ -348,12 +342,10 @@ app.post('/api/solicitacoes/atualizar', async (req, res) => {
   }
 });
 
-// Health check endpoint para Docker
 app.get('/api/health', (req, res) => {
   res.status(200).json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
-// Inicializar servidor
 initDatabase().then(() => {
   app.listen(PORT, () => {
     console.log(`✓ Servidor rodando em http://localhost:${PORT}`);
